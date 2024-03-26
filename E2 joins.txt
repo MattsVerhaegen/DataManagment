@@ -1,0 +1,19 @@
+E2 joins
+
+select combined."Title", combined."Name", combined."Milliseconds" from (
+    select * 
+    from chinook."Track" as t, chinook."Album" as a
+    where t."AlbumId" = a."AlbumId"
+) as combined
+where combined."TrackId" in (
+    select c."TrackId" from (
+        select * 
+        from chinook."Track" as t, chinook."Album" as a
+        where t."AlbumId" = a."AlbumId"
+    ) as c
+    where combined."Title" = c."Title"
+    order by c."Milliseconds" DESC
+    fetch first 2 row only 
+)
+group by combined."Title",combined."Name", combined."Milliseconds"
+order by combined."Title"

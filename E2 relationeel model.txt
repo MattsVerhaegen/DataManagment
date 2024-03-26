@@ -1,0 +1,17 @@
+E2 relationeel model
+
+Select naam, sum(zwartgeld) Form bank Where sum(zwartgeld)>255;
+
+FROM ipv form en group by en having gebruiken ipv where
+
+SELECT count() FROM spelers AS Micheal WHERE naam = "Charlie Skyer";
+
+'' ipv ""
+logische fout as michael moet niet
+count(*)
+
+SELEKT *
+FROM   klanten,deelnames;
+
+select selekt
+logische fout gebruik join

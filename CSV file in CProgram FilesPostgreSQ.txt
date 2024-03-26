@@ -1,0 +1,38 @@
+Zie 17.integratie E1_file_fdw.nld
+
+1. Is de extensie beschikbaar op de server?
+
+ select *
+ from   pg_available_extensions
+ where  name='file_fdw';
+
+2. Extensie installeren
+
+ create extension file_fdw;
+
+3. Extensie gebruiken
+
+ create server file_server foreign data wrapper file_fdw;
+
+4. Tabel structuur
+
+CSV file in C:\Program Files\PostgreSQL\16\data zetten omdat permissies ander het blokkeren.
+ 
+create foreign table file_organisations (
+    Index INTEGER,
+    Organization_Id TEXT,
+    Name TEXT,
+    Website TEXT,
+    Country TEXT,
+    Description TEXT,
+    Founded INTEGER,
+    Industry TEXT,
+    Number_of_employees INTEGER
+ )
+ server file_server
+ options (filename 'C:\Program Files\PostgreSQL\16\data\organizations-100.csv', format 'csv', HEADER 'true');
+
+5. Data lezen
+
+ select *
+ from   file_organisations;

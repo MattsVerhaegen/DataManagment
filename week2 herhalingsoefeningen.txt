@@ -1,0 +1,7 @@
+oefening 1
+
+SELECT objectnaam, avg(verblijfsduur)
+FROM ruimtereizen.bezoeken
+GROUP BY objectnaam
+HAVING avg(verblijfsduur) > 2
+ORDER BY objectnaam

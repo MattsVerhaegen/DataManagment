@@ -1,0 +1,35 @@
+E1 joins
+
+Wat is de uitvoer van
+
+SELECT  t1.nr, t1.k1,
+    (SELECT count(*)
+    FROM    t2
+    WHERE   t2.nr = t1.nr)
+FROM    t1, t2
+WHERE   t1.nr < 3;
+Kan je deze query ook zonder subquery schrijven?
+
+
+
+Wat is de uitvoer van volgende queries
+
+SELECT  count(*), max(k.hematocrietgemiddelde)
+FROM    wk w cross join wk k
+GROUP BY w.goals;
+
+t    g    h
+b    
+
+
+
+SELECT  count(*), max(w.goals)
+FROM    wk w, wk k
+ORDER BY k.hematocrietgemiddelde;
+
+SELECT  count(*), sum(k.goals)
+FROM    wedstrijden w inner join wedstrijden k on (w.goals=k.goals)
+WHERE   w.goals = k.goals
+
+
+GROUP BY w.goals;

@@ -1,0 +1,88 @@
+oefening 1
+
+SELECT s.naam, s.geslacht, b.functie
+FROM spelers s
+inner join bestuursleden b on s.spelersnr = b.spelersnr
+WHERE geslacht = 'M'
+    AND LENGTH(naam) - LENGTH(REPLACE(naam, 'e', '')) >= 2
+ORDER BY s.naam, b.functie;
+
+oefening 2
+
+select s.spelersnr,s.naam,s.plaats
+from spelers s left outer join tennis.boetes b on s.spelersnr = b.spelersnr
+where b.betalingsnr isnull and s.plaats not like 'Den Haag'
+order by s.jaartoe ASC
+
+oefening 3
+
+SELECT s.spelersnr
+from spelers s
+full join boetes b on b.spelersnr = s.spelersnr
+full join bestuursleden bl on bl.spelersnr = s.spelersnr
+where b.betalingsnr IS null
+AND bl.spelersnr IS null
+order by s.spelersnr desc
+
+oefening 4
+
+SELECT s.spelersnr, s.naam, b.bedrag, w.teamnr
+FROM spelers s
+JOIN wedstrijden w ON s.spelersnr = w.spelersnr
+JOIN boetes b ON s.spelersnr = b.spelersnr
+WHERE s.plaats = 'Rijswijk'
+ORDER BY s.spelersnr ASC, b.bedrag ASC;
+
+oefening 5
+
+SELECT s1.spelersnr, s1.bondsnr
+FROM spelers s1
+INNER JOIN spelers s2 ON s1.geb_datum > s2.geb_datum AND s2.bondsnr = '8467'
+ORDER BY 1, 2;
+
+oefening 6
+
+SELECT s.spelersnr, s.naam, s.plaats
+from spelers s
+LEFT OUTER JOIN boetes b on b.spelersnr = s.spelersnr
+WHERE b.betalingsnr IS null
+AND s.plaats NOT LIKE 'Den Haag'
+ORDER BY s.jaartoe
+
+oefening 7
+
+SELECT s.spelersnr, s.naam, b.datum, b.bedrag
+from spelers s
+INNER JOIN boetes b ON b.spelersnr = s.spelersnr
+WHERE b.bedrag > 45.50
+AND s.plaats = 'Rijswijk'
+
+oefening 8
+
+SELECT s.spelersnr, s.naam, s.voorletters, t.divisie, w.wedstrijdnr
+from spelers s
+INNER JOIN teams t ON t.spelersnr = s.spelersnr
+INNER JOIN wedstrijden w ON w.spelersnr = t.spelersnr
+WHERE s.geslacht = 'M'
+ORDER BY w.wedstrijdnr desc
+
+oefening 9
+
+SELECT bl.spelersnr, MAX(w.wedstrijdnr) as laatstewedstrijd
+from bestuursleden bl
+LEFT OUTER JOIN boetes b ON b.spelersnr = bl.spelersnr
+INNER JOIN wedstrijden w on w.spelersnr = bl.spelersnr
+WHERE bl.eind_datum IS null
+AND b.betalingsnr IS null
+GROUP BY bl.spelersnr
+ORDER BY bl.spelersnr desc
+
+oefening 10
+
+SELECT t.teamnr, CONCAT(EXTRACT(YEAR FROM AGE(MAX(s.geb_datum))), ' jaar') AS leeftijd, COUNT(DISTINCT w.spelersnr) AS aantalspelers
+FROM teams t
+INNER JOIN wedstrijden w ON t.teamnr = w.teamnr
+INNER JOIN spelers s ON t.spelersnr = s.spelersnr
+WHERE t.spelersnr IS NOT null
+GROUP BY t.teamnr
+ORDER BY leeftijd, aantalspelers, t.teamnr;pg

@@ -1,0 +1,12 @@
+select ar."Name", count(distinct al."AlbumId") as "AantalAlbums", count(t."TrackId") as "AantalTracks"
+from chinook."Artist" ar
+left outer join chinook."Album" al on ar."ArtistId" = al."ArtistId"
+left outer join chinook."Track" t on al."AlbumId" = t."AlbumId"
+GROUP BY ar."ArtistId"
+ORDER BY ar."Name"
+
+select ar."Name", sum(t."Milliseconds"/1000/60)
+from chinook."Artist" ar
+left outer join chinook."Album" al on ar."ArtistId" = al."ArtistId"
+inner join chinook."Track" t on al."AlbumId" = t."AlbumId"
+GROUP BY ar."Name"

@@ -1,0 +1,31 @@
+Make your own datatype drank
+CREATE TYPE drank AS (
+    merk VARCHAR(200),
+    soort VARCHAR(200),
+    brouwerij VARCHAR(255),
+    periode VARCHAR(255)
+);
+
+CREATE TABLE drank_tabel (
+    merknaam drank NOT NULL UNIQUE
+);
+
+Voeg values toe
+insert into drank_tabel (merknaam.merk, merknaam.soort, merknaam.brouwerij, merknaam.periode) VALUES('biertest', 'pils', 'ab', '2002')
+
+Creër tabel die overerft van drank_tabel
+CREATE TABLE bier (
+    alcohol_percentage DECIMAL
+) INHERITS (drank_tabel);
+
+Toon alle dranken:
+SELECT * FROM drank_tabel;
+Toon enkel de bieren:
+SELECT * FROM bier;
+Toon alle dranken zonder de gekende bieren:
+SELECT * FROM ONLY drank_tabel;
+
+create or replace function drank_naar_merknaam( d drank)
+
+
+create cast (drank as text) with function drank_naar_merknaam(drank)
